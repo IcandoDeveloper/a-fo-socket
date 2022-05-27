@@ -4,6 +4,7 @@ const http = require("http");
 const { Server } = require("socket.io");
 const { sequelize } = require("./models");
 const cors = require("cors");
+const auth = require("./routes/auth");
 
 // sequelize 연결
 sequelize
