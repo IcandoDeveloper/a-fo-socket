@@ -9,10 +9,7 @@ app.use(cors());
 const server = http.createServer(app);
 
 const io = new Server(server, {
-  cors: {
-    origin: "http://112.157.71.213",
-    methods: ["GET", "POST"],
-  },
+  path: "/",
 });
 
 io.on("connection", (socket) => {
