@@ -2,10 +2,20 @@ const express = require("express");
 const app = express();
 const http = require("http");
 const { Server } = require("socket.io");
+const { sequelize } = require("./models");
 const cors = require("cors");
 
-app.use(cors());
+// sequelize 연결
+sequelize
+  .sync({ force: false })
+  .then(() => {
+    console.log("데이터베이스 연결 성공");
+  })
+  .catch((err) => {
+    console.error(err);
+  });
 
+app.use(cors());
 const server = http.createServer(app);
 
 const io = new Server(server, {
