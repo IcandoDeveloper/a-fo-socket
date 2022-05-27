@@ -24,6 +24,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("send_message", (data) => {
+    console.log("이게 메세지 일까요??", data);
     socket.to(data.room).emit("receive_message", data);
   });
 
