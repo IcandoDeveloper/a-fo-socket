@@ -3,6 +3,7 @@ const KakaoStrategy = require("passport-kakao").Strategy;
 require("dotenv").config();
 const { User } = require("../models");
 
+console.log("여기 나오나??");
 passport.use(
   new KakaoStrategy(
     {
