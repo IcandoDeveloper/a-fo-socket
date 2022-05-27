@@ -16,6 +16,7 @@ sequelize
   });
 
 app.use(cors());
+app.use("/oauth", [auth]);
 const server = http.createServer(app);
 
 const io = new Server(server, {

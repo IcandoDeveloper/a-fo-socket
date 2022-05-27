@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var passport = require("./passport/passport.js");
+var passport = require("../passport/passport.js");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
@@ -34,6 +34,6 @@ const kakaoCallback = (req, res, next) => {
     }
   )(req, res, next);
 };
-router.get("/oauth/kakao/callback", kakaoCallback);
+router.get("/kakao/callback", kakaoCallback);
 
 module.exports = router;
