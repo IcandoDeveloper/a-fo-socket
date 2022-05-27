@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var passport = require("/passport/passport.js");
+var passport = require("passport/passport.js");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
