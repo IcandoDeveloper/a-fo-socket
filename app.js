@@ -84,14 +84,13 @@ io.on("connection", (socket) => {
     // data = {room : "2208267975_2208267975", author: "윤지", message: "d", time: "16:46" }
 
     // 대화내용을 DB에 저장
-    const { room, author, message, time } = data;
+    const { room, author, message } = data;
 
     console.log(1, room);
     console.log(2, author);
     console.log(3, message);
-    console.log(4, time);
 
-    DM.create({ room, author, message, time }).then((info) => {
+    DM.create({ room, author, message }).then((info) => {
       console.log(info);
     });
 

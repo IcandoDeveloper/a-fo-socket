@@ -18,7 +18,6 @@ module.exports = (sequelize, DataTypes) => {
       room: DataTypes.STRING,
       author: DataTypes.STRING,
       message: DataTypes.STRING,
-      time: DataTypes.STRING,
     },
     {
       sequelize,
