@@ -6,6 +6,7 @@ const https = require("https");
 const fs = require("fs");
 const { Server } = require("socket.io");
 const { sequelize } = require("./models");
+const { DM } = require("./models");
 const cors = require("cors");
 const auth = require("./routes/auth");
 
@@ -82,7 +83,11 @@ io.on("connection", (socket) => {
     // data = {room : "2208267975_2208267975", author: "윤지", message: "d", time: "16:46" }
     socket.to(data.room).emit("receive_message", data);
 
-    DM.create(); // 대화내용을 DB에 저장
+    const { room, author, message, time } = data;
+
+    DM.create(room, author, message, time).then((info) => {
+      console.log(info);
+    }); // 대화내용을 DB에 저장
 
     console.log("이게 메세지 일까요??", data);
   });
