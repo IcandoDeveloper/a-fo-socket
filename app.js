@@ -50,7 +50,7 @@ app.get("/", (req, res) => {
 });
 
 app.use(cors());
-app.use("/oauth", [auth]);
+// app.use("/oauth", [auth]);
 const server = https.createServer(credentials, app);
 
 const io = new Server(server, {
@@ -80,14 +80,14 @@ io.on("connection", (socket) => {
 
   // ## 2번 특정 Room에 메세지 전송 이벤트 처리
   socket.on("send_message", (data) => {
-    // data = {room : "2208267975_2208267975", author: "윤지", message: "d", time: "16:46" }
     socket.to(data.room).emit("receive_message", data);
+    // data = {room : "2208267975_2208267975", author: "윤지", message: "d", time: "16:46" }
 
+    // 대화내용을 DB에 저장
     const { room, author, message, time } = data;
-
     DM.create(room, author, message, time).then((info) => {
       console.log(info);
-    }); // 대화내용을 DB에 저장
+    });
 
     console.log("이게 메세지 일까요??", data);
   });
