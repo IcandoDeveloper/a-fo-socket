@@ -44,6 +44,10 @@ sequelize
     console.error(err);
   });
 
+app.get("/", (req, res) => {
+  res.send("good");
+});
+
 app.use(cors());
 app.use("/oauth", [auth]);
 const server = https.createServer(credentials, app);
