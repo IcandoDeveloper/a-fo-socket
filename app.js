@@ -1,10 +1,38 @@
 const express = require("express");
 const app = express();
+const app_low = express();
 const http = require("http");
+const https = require("https");
+const fs = require("fs");
 const { Server } = require("socket.io");
 const { sequelize } = require("./models");
 const cors = require("cors");
 const auth = require("./routes/auth");
+
+// 인증서 불러오기
+const privateKey = fs.readFileSync(__dirname + "/a-fo-back_shop.key", "utf-8");
+const certificate = fs.readFileSync(
+  __dirname + "/a-fo-back_shop__crt.pem",
+  "utf-8"
+);
+const ca = fs.readFileSync(__dirname + "/a-fo-back_shop__ca.pem", "utf-8");
+const credentials = {
+  key: privateKey,
+  cert: certificate,
+  ca: ca,
+};
+
+// https 리다이렉션 하기
+// app_low : http전용 미들웨어
+app_low.use((req, res, next) => {
+  if (req.secure) {
+    next();
+  } else {
+    const to = `https://${req.hostname}:${httpsPort}${req.url}`;
+    console.log(to);
+    res.redirect(to);
+  }
+});
 
 // sequelize 연결
 sequelize
@@ -18,7 +46,7 @@ sequelize
 
 app.use(cors());
 app.use("/oauth", [auth]);
-const server = http.createServer(app);
+const server = https.createServer(credentials, app);
 
 const io = new Server(server, {
   path: "/socket.io",
@@ -70,6 +98,6 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(3001, () => {
+server.listen(443, () => {
   console.log("SERVER IS RUNNING");
 });
