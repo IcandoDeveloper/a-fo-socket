@@ -15,10 +15,10 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.STRING,
       },
-      room: DataTypes.INTEGER,
+      room: DataTypes.STRING,
       author: DataTypes.STRING,
       message: DataTypes.STRING,
-      time: DataTypes.DATE,
+      time: DataTypes.STRING,
     },
     {
       sequelize,
