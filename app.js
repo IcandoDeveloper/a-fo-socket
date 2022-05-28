@@ -23,7 +23,7 @@ const server = http.createServer(app);
 const io = new Server(server, {
   path: "/socket.io",
   cors: {
-    origin: "http://localhost:3000",
+    origin: "http://localhost:3001",
   },
 });
 
@@ -50,7 +50,7 @@ io.on("connection", (socket) => {
     // data = {room : "2208267975_2208267975", author: "윤지", message: "d", time: "16:46" }
     socket.to(data.room).emit("receive_message", data);
 
-    // DM.create() // 대화내용을 DB에 저장
+    DM.create(); // 대화내용을 DB에 저장
 
     console.log("이게 메세지 일까요??", data);
   });
