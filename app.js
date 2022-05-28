@@ -91,7 +91,7 @@ io.on("connection", (socket) => {
     console.log(3, message);
     console.log(4, time);
 
-    DM.create(room, author, message, time).then((info) => {
+    DM.create({ room, author, message, time }).then((info) => {
       console.log(info);
     });
 
