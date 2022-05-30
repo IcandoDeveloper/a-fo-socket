@@ -106,7 +106,7 @@ io.on("connection", (socket) => {
       attribute: ["room"],
       where: { room },
     }).then((Room) => {
-      console.log(Room);
+      console.log("##", Room);
     });
 
     // console.log(existRoom); // 이거 파싱해봐야할수도있음
