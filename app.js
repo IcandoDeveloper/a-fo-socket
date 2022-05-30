@@ -66,7 +66,7 @@ const io = new Server(server, {
 // ## 2. A는 상단에 메세지버튼을 누르면 RoomId(A_B)가지고 있는 채팅방 목록이 뜬다.
 // ## 3. A가 Room을 누르면 RoomId(A_B)라는 채팅방에 입장을 한다. [ A가 RoomId(A_B)에 입장한다. --> 대화내용을 DB에서 불러온다. ]
 
-io.on("connection", async(socket) => {
+io.on("connection", (socket) => {
   // social = { "socketId" : `${socket.id}`,
   //            "socialId" : "220867975"
   //          }
@@ -80,7 +80,7 @@ io.on("connection", async(socket) => {
   });
 
   // ## 2번 특정 Room에 메세지 전송 이벤트 처리
-  socket.on("send_message", (data) => {
+  socket.on("send_message", async (data) => {
     socket.to(data.room).emit("receive_message", data);
     // data = { room: "2208267975_2208267975",
     //          author: "윤지", authorId: "123456",
@@ -97,40 +97,39 @@ io.on("connection", async(socket) => {
       targetAuthor,
       targetAuthorId,
       message,
-    })
+    });
     // .then((info) => {
     //   console.log(info);
     // });
-      
+
     // null이 프로미스 객체값으로 되면 리젝 될수 있어서 catch가 필요 할 수 있음
     console.log("여기 오나??");
 
-   const existRoom = await Room.findOne({
+    const existRoom = await Room.findOne({
       attribute: ["room"],
       where: { room },
-    })
+    });
     // .then((existRoom) => {
-      //   console.log("##Room findOne 결과", existRoom);
-    
-      
-      if (!existRoom) {
-       await Room.create({
-          room,
-          author,
-          authorId,
-          targetAuthor,
-          targetAuthorId,
-          message,
-        })
-        // .then((info) => {
-        //   console.log(info);
-        // });
-      } else {
-       await Room.update({ message }, { where: { room } })
-        // .then((info) => {
-        //   console.log(info);
-        // });
-      }
+    //   console.log("##Room findOne 결과", existRoom);
+
+    if (!existRoom) {
+      await Room.create({
+        room,
+        author,
+        authorId,
+        targetAuthor,
+        targetAuthorId,
+        message,
+      });
+      // .then((info) => {
+      //   console.log(info);
+      // });
+    } else {
+      await Room.update({ message }, { where: { room } });
+      // .then((info) => {
+      //   console.log(info);
+      // });
+    }
 
     console.log("이게 메세지 일까요??", data);
   });
