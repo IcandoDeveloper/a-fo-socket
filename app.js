@@ -98,19 +98,13 @@ io.on("connection", (socket) => {
       targetAuthorId,
       message,
     });
-    // .then((info) => {
-    //   console.log(info);
-    // });
-
-    // null이 프로미스 객체값으로 되면 리젝 될수 있어서 catch가 필요 할 수 있음
-    console.log("여기 오나??");
 
     const existRoom = await Room.findOne({
       attribute: ["room"],
       where: { room },
     });
-    // .then((existRoom) => {
-    //   console.log("##Room findOne 결과", existRoom);
+
+    console.log(existRoom);
 
     if (!existRoom) {
       await Room.create({
@@ -121,14 +115,8 @@ io.on("connection", (socket) => {
         targetAuthorId,
         message,
       });
-      // .then((info) => {
-      //   console.log(info);
-      // });
     } else {
       await Room.update({ message }, { where: { room } });
-      // .then((info) => {
-      //   console.log(info);
-      // });
     }
 
     console.log("이게 메세지 일까요??", data);
