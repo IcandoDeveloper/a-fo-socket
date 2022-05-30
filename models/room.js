@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.STRING,
       },
-      room: DataTypes.STRING,
+      room: DataTypes.INTEGER,
       author: DataTypes.STRING,
       authorId: DataTypes.INTEGER,
       targetAuthor: DataTypes.STRING,
