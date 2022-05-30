@@ -100,7 +100,7 @@ io.on("connection", (socket) => {
     });
 
     const existRoom = await Room.findOne({
-      attribute: ["room"],
+      attributes: ["room"],
       where: { room },
     });
 
