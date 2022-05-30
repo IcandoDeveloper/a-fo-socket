@@ -66,7 +66,7 @@ const io = new Server(server, {
 // ## 2. A는 상단에 메세지버튼을 누르면 RoomId(A_B)가지고 있는 채팅방 목록이 뜬다.
 // ## 3. A가 Room을 누르면 RoomId(A_B)라는 채팅방에 입장을 한다. [ A가 RoomId(A_B)에 입장한다. --> 대화내용을 DB에서 불러온다. ]
 
-io.on("connection", (socket) => {
+io.on("connection", async(socket) => {
   // social = { "socketId" : `${socket.id}`,
   //            "socialId" : "220867975"
   //          }
@@ -90,41 +90,47 @@ io.on("connection", (socket) => {
     const { room, author, authorId, targetAuthor, targetAuthorId, message } =
       data;
 
-    DM.create({
+    await DM.create({
       room,
       author,
       authorId,
       targetAuthor,
       targetAuthorId,
       message,
-    }).then((info) => {
-      console.log(info);
-    });
-
+    })
+    // .then((info) => {
+    //   console.log(info);
+    // });
+      
     // null이 프로미스 객체값으로 되면 리젝 될수 있어서 catch가 필요 할 수 있음
-    Room.findOne({
+    console.log("여기 오나??");
+
+   const existRoom = await Room.findOne({
       attribute: ["room"],
       where: { room },
-    }).then((existRoom) => {
-      console.log("##Room findOne 결과", existRoom);
-
+    })
+    // .then((existRoom) => {
+      //   console.log("##Room findOne 결과", existRoom);
+    
+      
       if (!existRoom) {
-        Room.create({
+       await Room.create({
           room,
           author,
           authorId,
           targetAuthor,
           targetAuthorId,
           message,
-        }).then((info) => {
-          console.log(info);
-        });
+        })
+        // .then((info) => {
+        //   console.log(info);
+        // });
       } else {
-        Room.update({ message }, { where: { room } }).then((info) => {
-          console.log(info);
-        });
+       await Room.update({ message }, { where: { room } })
+        // .then((info) => {
+        //   console.log(info);
+        // });
       }
-    });
 
     console.log("이게 메세지 일까요??", data);
   });
