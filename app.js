@@ -102,13 +102,13 @@ io.on("connection", (socket) => {
     });
 
     // null이 프로미스 객체값으로 되면 리젝 될수 있어서 catch가 필요 할 수 있음
-    let existRoom = Room.findOne({
+    Room.findOne({
       attribute: ["room"],
       where: { room },
     }).then((existRoom) => {
       console.log("##Room findOne 결과", existRoom);
 
-      if (existRoom) {
+      if (!existRoom) {
         Room.create({
           room,
           author,
