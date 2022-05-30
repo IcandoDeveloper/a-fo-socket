@@ -99,11 +99,11 @@ io.on("connection", (socket) => {
       message,
     });
 
-    console.log(room);
+    console.log("room 타입", typeof room);
 
     const existRoom = await Room.findOne({
       attributes: ["room"],
-      where: { room: Number(room) },
+      where: { room },
     });
 
     console.log(existRoom);
