@@ -99,6 +99,8 @@ io.on("connection", (socket) => {
       message,
     });
 
+    console.log(room);
+
     const existRoom = await Room.findOne({
       attributes: ["room"],
       where: { room },
