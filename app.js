@@ -109,9 +109,9 @@ io.on("connection", (socket) => {
       existRoom = Room;
     });
 
-    console.log(existRoom); // 이거 파싱해봐야할수도있음
+    // console.log(existRoom); // 이거 파싱해봐야할수도있음
 
-    if ("처음이라면") {
+    if (existRoom) {
       Room.create({
         room,
         author,
