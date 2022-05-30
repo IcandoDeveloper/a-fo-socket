@@ -87,8 +87,10 @@ io.on("connection", (socket) => {
     //          targetAuthor: "태성", targetAuthorId: "654321", message: "d", time: "16:46" }
 
     // 대화내용을 DB에 저장
-    const { room, author, authorId, targetAuthor, targetAuthorId, message } =
+    let { room, author, authorId, targetAuthor, targetAuthorId, message } =
       data;
+
+    room = String(room);
 
     await DM.create({
       room,
