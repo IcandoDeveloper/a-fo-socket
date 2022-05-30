@@ -111,25 +111,25 @@ io.on("connection", (socket) => {
 
     // console.log(existRoom); // 이거 파싱해봐야할수도있음
 
-  //   if (existRoom) {
-  //     Room.create({
-  //       room,
-  //       author,
-  //       authorId,
-  //       targetAuthor,
-  //       targetAuthorId,
-  //       message,
-  //     }).then((info) => {
-  //       console.log(info);
-  //     });
-  //   } else {
-  //     Room.update({ message }, { where: { room } }).then((info) => {
-  //       console.log(info);
-  //     });
-  //   }
+    //   if (existRoom) {
+    //     Room.create({
+    //       room,
+    //       author,
+    //       authorId,
+    //       targetAuthor,
+    //       targetAuthorId,
+    //       message,
+    //     }).then((info) => {
+    //       console.log(info);
+    //     });
+    //   } else {
+    //     Room.update({ message }, { where: { room } }).then((info) => {
+    //       console.log(info);
+    //     });
+    //   }
 
-  //   console.log("이게 메세지 일까요??", data);
-  // });
+    //   console.log("이게 메세지 일까요??", data);
+  });
 
   // Socket 연결 끊기 이벤트 처리
   socket.on("disconnect", () => {
