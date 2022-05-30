@@ -102,11 +102,11 @@ io.on("connection", (socket) => {
     });
 
     // null이 프로미스 객체값으로 되면 리젝 될수 있어서 catch가 필요 할 수 있음
-    Room.findOne({
+    const existRoom = Room.findOne({
       attribute: ["room"],
       where: { room },
-    }).then((existRoom) => {
-      existRoom;
+    }).then((Room) => {
+      return Room;
     });
 
     console.log(existRoom); // 이거 파싱해봐야할수도있음
